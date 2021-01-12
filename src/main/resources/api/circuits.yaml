@@ -1,0 +1,142 @@
+openapi: 3.0.1
+info:
+  title: Circuits API
+  description: ""
+  version: 1.0.0
+servers:
+  - url: http://ergast.com/api/f1
+paths:
+  /circuits.{type}:
+    get:
+      summary: List of all circuits since 1950 year
+      parameters:
+        - name: type
+          in: path
+          description: type of response
+          required: true
+          schema:
+            type: string
+            enum: [json, xml]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitsResponse'
+  /{year}/circuits.{type}:
+    get:
+      summary: List of all circuits for specific year
+      parameters:
+        - name: year
+          in: path
+          description: specific year for curcuit list
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: type
+          in: path
+          description: type of response
+          required: true
+          schema:
+            type: string
+            enum: [json, xml]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitsResponse'
+  /{year}/{round}/circuits.{type}:
+    get:
+      summary: Circuit for specific year and round
+      parameters:
+        - name: year
+          in: path
+          description: specific year for curcuit list
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: round
+          in: path
+          description: specific round for cursuit
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: type
+          in: path
+          description: type of response
+          required: true
+          schema:
+            type: string
+            enum: [json, xml]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitsResponse'
+components:
+  schemas:
+    CircuitsResponse:
+      type: object
+      properties:
+        MRData:
+          $ref: '#/components/schemas/MRData'
+
+    MRData:
+      type: object
+      properties:
+        xmlns:
+          type: string
+        series:
+          type: string
+        url:
+          type: string
+        limit:
+          type: string
+        offset:
+          type: string
+        total:
+          type: string
+        CircuitTable:
+          $ref: '#/components/schemas/CircuitTable'
+
+    CircuitTable:
+      type: object
+      properties:
+        season:
+          type: string
+        round:
+          type: string
+        Circuits:
+          type: array
+          items:
+            $ref: '#/components/schemas/circuit'
+    circuit:
+      type: object
+      properties:
+        circuitId:
+          type: string
+        url:
+          type: string
+        circuitName:
+          type: string
+        Location:
+          $ref: '#/components/schemas/location'
+    location:
+      type: object
+      properties:
+        lat:
+          type: string
+        long:
+          type: string
+        locality:
+          type: string
+        country:
+          type: string

@@ -1,0 +1,41 @@
+logging:
+  level:
+    org.springframework: ERROR
+    ru.volkov.formula: DEBUG
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/formula
+    password: postgres
+    username: postgres
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        format-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: true
+
+app:
+    common:
+      scheme: "http"
+      host: "ergast.com"
+      basePath: "/api/f1"
+      responseType: "json"
+    curcuit:
+      circuitPath: "circuits"
+      queryLimit: 100
+
+
+
+
+
+
